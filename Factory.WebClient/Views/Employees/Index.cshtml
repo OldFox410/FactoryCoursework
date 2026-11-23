@@ -1,0 +1,62 @@
+﻿@model IEnumerable<EmployeeQueryDto>
+
+@{
+    ViewData["Title"] = "Сотрудники";
+    var departments = ViewBag.Departments as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    var currentSearch = Context.Request.Query["Search"].ToString();
+    var currentDepartmentId = Context.Request.Query["DepartmentId"].ToString();
+}
+
+<h1>Сотрудники</h1>
+
+<form method="get" asp-action="Index">
+    <input type="text" name="Search" value="@currentSearch" placeholder="Поиск по ФИО или табельному..." />
+
+    <select name="DepartmentId">
+        <option value="">Все отделы</option>
+        @foreach (var dept in departments)
+        {
+            var deptIdStr = dept.Id.ToString();
+            <option value="@dept.Id" selected="@(deptIdStr == currentDepartmentId ? "selected" : null)">@dept.Name</option>
+        }
+    </select>
+
+    <button type="submit">Найти</button>
+    <a asp-action="Index">Сбросить</a>
+</form>
+
+<p>
+    <a asp-action="Create">Добавить сотрудника</a>
+</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>ФИО</th>
+        <th>Табельный номер</th>
+        <th>Отдел</th>
+        <th>Телефон</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.FullName</td>
+            <td>@item.BadgeNumber</td>
+            <td>@item.DepartmentName</td>
+            <td>@(item.Phone ?? "—")</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" onclick="return confirm('Удалить сотрудника #@item.Id?');">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

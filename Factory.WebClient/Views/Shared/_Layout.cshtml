@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"] ?? "Factory")</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+<header>
+    <nav>
+        <a asp-controller="Contracts" asp-action="Index">Договоры</a>
+        <a asp-controller="Employees" asp-action="Index">Сотрудники</a>
+        <a asp-controller="Payments" asp-action="Index">Платежи</a>
+        <a asp-controller="Organizations" asp-action="Index">Организации</a>
+    </nav>
+</header>
+
+<main role="main">
+    @RenderBody()
+</main>
+
+<footer>
+    <span>Factory</span>
+</footer>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

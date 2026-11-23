@@ -1,0 +1,41 @@
+@model IEnumerable<Factory.Domain.Dto.OrganizationDto>
+
+@{
+    ViewData["Title"] = "Организации";
+}
+
+<h1>Организации</h1>
+
+<p>
+    <a asp-action="Create">Добавить организацию</a>
+</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Наименование</th>
+        <th>Адрес</th>
+        <th>Номер контракта</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@(string.IsNullOrWhiteSpace(item.Address) ? "—" : item.Address)</td>
+            <td>@(string.IsNullOrWhiteSpace(item.ContactNumber) ? "—" : item.ContactNumber)</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" onclick="return confirm('Удалить организацию #@item.Id?');">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

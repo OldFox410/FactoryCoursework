@@ -1,0 +1,47 @@
+﻿@model Factory.Domain.Dto.PaymentDto
+
+@{
+    ViewData["Title"] = "Начисление выплаты";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+    <div class="form-group">
+        <label asp-for="EmployeeId">ID сотрудника</label>
+        <input asp-for="EmployeeId" type="number" min="1" />
+        <span asp-validation-for="EmployeeId" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PaymentMonth">Расчётный месяц / дата</label>
+        <input asp-for="PaymentMonth" type="date" asp-format="{0:yyyy-MM-dd}" />
+        <span asp-validation-for="PaymentMonth" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SalaryAmount">Оклад / базовая сумма</label>
+        <input asp-for="SalaryAmount" type="number" step="0.01" min="0" />
+        <span asp-validation-for="SalaryAmount" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Bonus">Премия</label>
+        <input asp-for="Bonus" type="number" step="0.01" min="0" />
+        <span asp-validation-for="Bonus" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Fine">Удержание / штраф</label>
+        <input asp-for="Fine" type="number" step="0.01" min="0" />
+        <span asp-validation-for="Fine" class="field-validation-error"></span>
+    </div>
+
+    <div>
+        <button type="submit">Создать</button>
+        <a asp-action="Index" class="btn">Назад к списку</a>
+    </div>
+</form>

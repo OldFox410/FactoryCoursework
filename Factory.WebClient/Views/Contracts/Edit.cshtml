@@ -1,0 +1,64 @@
+﻿@model Factory.Domain.Dto.ContractViewDto
+
+@{
+    ViewData["Title"] = "Редактирование контракта";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="OrganizationName" type="hidden" />
+    <input asp-for="EmployeeFullName" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="OrganizationId">ID организации</label>
+        <input id="organizationIdInput" asp-for="OrganizationId" type="number" min="1" />
+        <span id="organizationNameLabel" data-original-id="@Model.OrganizationId">@Model.OrganizationName</span>
+        <span asp-validation-for="OrganizationId" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmployeeId">ID сотрудника</label>
+        <input id="employeeIdInput" asp-for="EmployeeId" type="number" min="1" />
+        <span id="employeeNameLabel" data-original-id="@Model.EmployeeId">@Model.EmployeeFullName</span>
+        <span asp-validation-for="EmployeeId" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ContractDate">Дата контракта</label>
+        <input asp-for="ContractDate" type="date" asp-format="{0:yyyy-MM-dd}" />
+        <span asp-validation-for="ContractDate" class="field-validation-error"></span>
+    </div>
+
+    <div>
+        <button type="submit">Сохранить</button>
+        <a asp-action="Index" asp-route-employeeId="@Model.EmployeeId" class="btn">Назад к списку</a>
+    </div>
+</form>
+
+<script>
+    (function () {
+        function bindMatchedLabel(inputId, labelId) {
+            const input = document.getElementById(inputId);
+            const label = document.getElementById(labelId);
+            if (!input || !label) return;
+
+            const originalId = label.getAttribute("data-original-id");
+
+            function toggle() {
+                label.style.display = input.value === originalId ? "" : "none";
+            }
+
+            input.addEventListener("input", toggle);
+            input.addEventListener("change", toggle);
+            toggle();
+        }
+
+        bindMatchedLabel("organizationIdInput", "organizationNameLabel");
+        bindMatchedLabel("employeeIdInput", "employeeNameLabel");
+    })();
+</script>

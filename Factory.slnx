@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Factory.Application/Factory.Application.csproj" />
+  <Project Path="Factory.Domain/Factory.Domain.csproj" />
+  <Project Path="Factory.Migrator/Factory.Migrator.csproj" />
+  <Project Path="Factory.WebClient/Factory.WebClient.csproj" />
+</Solution>

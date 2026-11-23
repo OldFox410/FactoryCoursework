@@ -1,0 +1,35 @@
+﻿@model Factory.Domain.Dto.ContractDto
+
+@{
+    ViewData["Title"] = "Новый контракт";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+    <div class="form-group">
+        <label asp-for="OrganizationId">ID организации</label>
+        <input asp-for="OrganizationId" type="number" min="1" />
+        <span asp-validation-for="OrganizationId" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmployeeId">ID сотрудника</label>
+        <input asp-for="EmployeeId" type="number" min="1" />
+        <span asp-validation-for="EmployeeId" class="field-validation-error"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ContractDate">Дата контракта</label>
+        <input asp-for="ContractDate" type="date" asp-format="{0:yyyy-MM-dd}" />
+        <span asp-validation-for="ContractDate" class="field-validation-error"></span>
+    </div>
+
+    <div>
+        <button type="submit">Создать</button>
+        <a asp-action="Index" asp-route-employeeId="@(Model.EmployeeId > 0 ? Model.EmployeeId : null)" class="btn">Назад к списку</a>
+    </div>
+</form>
