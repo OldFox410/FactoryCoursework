@@ -1,7 +1,4 @@
 ﻿
-using Factory.Domain.Entities;
-using Microsoft.Extensions.Configuration;
-
 namespace Factory.Domain.Dto;
 
 public record EmployeeDto(

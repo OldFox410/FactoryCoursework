@@ -11,7 +11,7 @@ public class UpdatePaymentDtoValidator : AbstractSqlValidator<PaymentDto>
         Include(baseValidator);
 
         RuleFor(x => x.Id)
-            .GreaterThan(0)
+            .NotNull()
             .WithMessage("Не указан идентификатор записи.")
             .MustAsync(async (id, cancellationToken) => id.HasValue &&
                 await CheckForExistenceAsync(id.Value, cancellationToken, "Payments"))
