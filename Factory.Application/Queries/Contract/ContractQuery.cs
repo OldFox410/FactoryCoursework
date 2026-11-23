@@ -14,7 +14,15 @@ public class ContractQuery : DataBaseQuery<ContractQueryDto, ContractFilter>
         FROM Contracts c
         JOIN Organizations o ON o.Id = c.OrganizationId
         JOIN Employees e ON e.Id = c.EmployeeId 
-             AND (@EmployeeId IS NULL OR c.EmployeeId = @EmployeeId);";
+             AND (@Search IS NULL OR FirstName LIKE @Search OR LastName LIKE @Search OR MiddleName LIKE @Search);";
 
     public ContractQuery(IConfiguration config) : base(config) { }
+
+    public override Task<IEnumerable<ContractQueryDto>> ExecuteAsync(ContractFilter variables)
+    {
+        if (!string.IsNullOrEmpty(variables.Search))
+            variables = variables with { Search = $"%{variables.Search}%" };
+
+        return base.ExecuteAsync(variables);
+    }
 }

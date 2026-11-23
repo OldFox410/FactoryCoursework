@@ -29,9 +29,9 @@ public class ContractsController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(int? employeeId, CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(string? search, CancellationToken cancellationToken)
     {
-        var items = await _contractQuery.ExecuteAsync(new ContractFilter(employeeId));
+        var items = await _contractQuery.ExecuteAsync(new ContractFilter(search));
         return View(items);
     }
     

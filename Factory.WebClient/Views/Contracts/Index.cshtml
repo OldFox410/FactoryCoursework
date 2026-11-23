@@ -2,9 +2,15 @@
 
 @{
     ViewData["Title"] = "Договоры";
+    var currentSearch = Context.Request.Query["Search"].ToString();
 }
 
 <h1>Договоры</h1>
+<form method="get" asp-action="Index">
+    <input type="text" name="Search" value="@currentSearch" placeholder="Поиск по ФИО или табельному..." />
+    <button type="submit">Найти</button>
+    <a asp-action="Index">Сбросить</a>
+</form>
 
 <p>
     <a asp-action="Create">Добавить договор</a>

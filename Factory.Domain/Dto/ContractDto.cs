@@ -22,4 +22,4 @@ public record ContractQueryDto(
     DateTime? ContractDate
 );
 
-public record ContractFilter(int? EmployeeId);
+public record ContractFilter(string? Search);
