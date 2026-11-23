@@ -1,7 +1,9 @@
 ﻿
+using Factory.Domain.Entities.Abstract;
+
 namespace Factory.Domain.Entities;
 
-public class Employee
+public class Employee : Entity
 {
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;

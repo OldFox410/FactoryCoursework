@@ -1,7 +1,9 @@
 ﻿
+using Factory.Domain.Entities.Abstract;
+
 namespace Factory.Domain.Entities;
 
-public class Contract
+public class Contract : Entity
 {
     public int Id { get; set; }
     public int OrganizationId { get; set; }

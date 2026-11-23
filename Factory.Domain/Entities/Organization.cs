@@ -1,7 +1,9 @@
 ﻿
+using Factory.Domain.Entities.Abstract;
+
 namespace Factory.Domain.Entities;
 
-public class Organization
+public class Organization : Entity
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
