@@ -9,7 +9,6 @@ public class OrganizationDtoValidator : AbstractValidator<OrganizationDto>
     {
         RuleFor(x => x.Name).NotEmpty().WithMessage("Название организации обязательно");
         RuleFor(x => x.Name).MaximumLength(200).WithMessage("Название организации не должно превышать 200 символов");
-        RuleFor(x => x.Address);
         RuleFor(x => x.ContactNumber)
             .MaximumLength(50).WithMessage("Контактный номер не должен превышать 50 символов");
     }
